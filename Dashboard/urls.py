@@ -1,6 +1,7 @@
 from django.urls import path
+
 from .View.UpdateView import update_add, updateList, updateEdit, updateDelete
-from .View.ResellerView import ResellerView, ResellerList
+from .View.ResellerView import ResellerAdd, ResellerList, ResellerEdit, ResellerDelete
 from .View.views import index
 app_name = "Home"
 urlpatterns = [
@@ -11,8 +12,8 @@ urlpatterns = [
     path('edit/<str:id>/', updateEdit, name="updateEdit"),
     path('delete/<str:id>/', updateDelete, name="updelete"),
     # ReSeller URl Start
-    path('reselleradd/', ResellerView, name='reselleradd'),
+    path('reselleradd/', ResellerAdd, name='reselleradd'),
     path('resellerlist/', ResellerList, name="resellerlist"),
-    path('edit/<int:id>/', updateEdit, name="resellerEdit"),
-    path('delete/<int:id>/', updateDelete, name="resellerdelete")
+    path('resellerEdit/<int:id>/', ResellerEdit, name="resellerEdit"),
+    path('resellerdelete/<int:id>/', ResellerDelete, name="resellerdelete")
 ]

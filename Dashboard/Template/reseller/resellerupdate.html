@@ -1,4 +1,4 @@
-{% extends "Base.html" %} {% block Base %}
+{% extends "Base.html" %} {% block Base %} {% load crispy_forms_tags %}
 
 <div class="wrapper">
   <!-- Top Side Bar Block   -->
@@ -38,8 +38,7 @@
     <section class="content">
       <div class="container">
         <form method="post">
-          {% csrf_token %} {{editform.as_p}}
-
+          {% csrf_token %} {{editform|crispy }}
           <div class="pb-5">
             <button type="submit" class="btn btn-primary btn-lg">Save</button>
           </div>

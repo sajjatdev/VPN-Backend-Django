@@ -5,9 +5,10 @@ name = "pypi"
 
 [packages]
 django = "*"
-django-adminlte3 = "*"
 djangorestframework = "*"
 pymysql = "*"
+django-jazzmin = "*"
+django-crispy-forms = "*"
 
 [dev-packages]
 

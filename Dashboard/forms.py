@@ -1,10 +1,13 @@
-
-
-from dataclasses import fields
+from django.contrib.auth.forms import PasswordChangeForm
 from django import forms
 from .models import update
 from Loginapp.models import User
 
+
+class UserPasswordChaneg(PasswordChangeForm):
+    def __init__(self, *args, **kwargs):
+        super(UserPasswordChaneg, self).__init__(*args, **kwargs)
+        
 
 class UpdateForm(forms.ModelForm):
     class Meta:

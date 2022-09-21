@@ -1,13 +1,13 @@
-import operator
-from django.http import HttpResponse
+
 from django.shortcuts import render, redirect, get_object_or_404
 from Loginapp.models import User
 from ..forms import ReSellerForm
 
 
-def ResellerView(request):
+def ResellerAdd(request):
     if request.user.is_authenticated:
         current_user = request.user
+
         userdata = get_object_or_404(User, pk=current_user.id)
         if request.method == "POST":
 
@@ -19,25 +19,30 @@ def ResellerView(request):
             credit = request.POST.get('credit', 0)
             is_admin = request.POST.get('admin_status', False)
             createby = current_user.id
-            status = True
 
             if not User.objects.filter(username=username).exists():
                 if not User.objects.filter(email=email).exists():
-                    data = User.objects.create_user(
-                        username=username,
-                        credit=credit,
-                        first_name=first_name,
-                        last_name=last_name,
-                        email=email,
-                        password=password,
-                        createby=createby,
-                        status=status,
-                        is_admin=is_admin,
-                        passcode=password
-                    )
-                    data.save()
-                    print("ReSeller Create success")
-                    return redirect('/resellerlist/')
+                    if int(credit) <= userdata.credit or userdata.is_admin:
+                        data = User.objects.create_user(
+                            username=username,
+                            credit=credit,
+                            first_name=first_name,
+                            last_name=last_name,
+                            email=email,
+                            password=password,
+                            createby=createby,
+                            is_admin=is_admin,
+                            passcode=password
+                        )
+                        data.save()
+                        if not userdata.is_admin:
+                            userdata.credit = userdata.credit-credit
+                            userdata.save()
+                        print("ReSeller Create success")
+                        return redirect('/resellerlist/')
+                    else:
+                        form_post = ReSellerForm()
+                        return render(request, 'reseller/reselleradd.html', context={'User_data': userdata, 'reseller_form': form_post, 'error': 'credit'})
                 else:
                     form_post = ReSellerForm()
                     return render(request, 'reseller/reselleradd.html', context={'User_data': userdata, 'reseller_form': form_post, 'error': 'email'})
@@ -62,5 +67,30 @@ def ResellerList(request):
             resellerList = User.objects.filter(createby=current_user.id).all()
             return render(request, 'reseller/resellerList.html', context={'User_data': userdata, 'resellerList': resellerList})
 
+    else:
+        return redirect('/login/')
+
+
+def ResellerEdit(request, id):
+    if request.user.is_authenticated:
+        instance = get_object_or_404(User, pk=id)
+        password = User.objects.make_random_password(
+            length=6, allowed_chars="abcdefghjkmnpqrstuvwxyz01234567889")
+        instance.set_password(password)
+        instance.passcode = password
+        print(password)
+        instance.save()
+        print("Data Update Success")
+        return redirect('/resellerlist/')
+
+    else:
+        return redirect('/login/')
+
+
+def ResellerDelete(request, id):
+    if request.user.is_authenticated:
+        data = get_object_or_404(User, pk=id)
+        data.delete()
+        return redirect('/resellerlist/')
     else:
         return redirect('/login/')

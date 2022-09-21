@@ -9,7 +9,6 @@ class User(AbstractUser):
     email = models.EmailField(unique=True)
     create_at = models.DateTimeField(auto_now_add=True)
     is_admin = models.BooleanField(default=False)
-    status = models.BooleanField(default=True)
     createby = models.CharField(max_length=255)
     credit = models.PositiveIntegerField(default=0)
     passcode = models.CharField(max_length=255)
