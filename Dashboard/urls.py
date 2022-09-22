@@ -1,7 +1,7 @@
 from django.urls import path
-
+from .View.MembershipView import MambershipCreate
 from .View.UpdateView import update_add, updateList, updateEdit, updateDelete
-from .View.ResellerView import ResellerAdd, ResellerList, ResellerEdit, ResellerDelete
+from .View.ResellerView import ResellerAdd, ResellerList, ResellerEdit, ResellerDelete, resellerStatus
 from .View.views import index
 app_name = "Home"
 urlpatterns = [
@@ -15,5 +15,8 @@ urlpatterns = [
     path('reselleradd/', ResellerAdd, name='reselleradd'),
     path('resellerlist/', ResellerList, name="resellerlist"),
     path('resellerEdit/<int:id>/', ResellerEdit, name="resellerEdit"),
-    path('resellerdelete/<int:id>/', ResellerDelete, name="resellerdelete")
+    path('resellerdelete/<int:id>/', ResellerDelete, name="resellerdelete"),
+    path('resellerStatus/<int:id>/', resellerStatus, name="resellerStatus"),
+    # Membership URL Start
+    path('membershipcreate/', MambershipCreate, name="MambershipCreate")
 ]

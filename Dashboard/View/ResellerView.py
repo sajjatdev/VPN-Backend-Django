@@ -7,7 +7,6 @@ from ..forms import ReSellerForm
 def ResellerAdd(request):
     if request.user.is_authenticated:
         current_user = request.user
-
         userdata = get_object_or_404(User, pk=current_user.id)
         if request.method == "POST":
 
@@ -36,7 +35,7 @@ def ResellerAdd(request):
                         )
                         data.save()
                         if not userdata.is_admin:
-                            userdata.credit = userdata.credit-credit
+                            userdata.credit = int(userdata.credit)-int(credit)
                             userdata.save()
                         print("ReSeller Create success")
                         return redirect('/resellerlist/')
@@ -94,3 +93,25 @@ def ResellerDelete(request, id):
         return redirect('/resellerlist/')
     else:
         return redirect('/login/')
+
+
+def resellerStatus(request, id):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            status = request.POST['status']
+            data = get_object_or_404(User, pk=id)
+            if status is "1":
+                data.is_active = False
+                print("1")
+                data.save()
+                # Status Change Customer
+            else:
+                data.is_active = True
+                print("2")
+                data.save()
+                # Status Change Customer
+            return redirect('/resellerlist/')
+    else:
+        return redirect('/login/')
+
+

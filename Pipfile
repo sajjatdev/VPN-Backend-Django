@@ -11,6 +11,7 @@ django-jazzmin = "*"
 django-crispy-forms = "*"
 
 [dev-packages]
+autopep8 = "*"
 
 [requires]
 python_version = "3.10"
