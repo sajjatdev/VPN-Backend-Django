@@ -26,9 +26,11 @@ class update(models.Model):
 class Membership(models.Model):
     name = [("Trial", "Trial"), ("Day", "Day"),
             ("Month", "Month"), ("Years", "Years")]
+    title = models.CharField(max_length=255)
     duration = models.PositiveIntegerField()
     name = models.CharField(
         choices=name, default="Trial", max_length=255)
+
     def __str__(self):
         return str(self.duration) + " " + self.name
 

@@ -41,8 +41,9 @@ class MembershipForm(forms.ModelForm):
 
     class Meta:
         model = Membership
-        fields = ['duration', 'name']
+        fields = ['title', 'duration', 'name']
         widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control', 'required': 'required', 'autocomplete': 'off'}),
             'name': forms.Select(attrs={'class': 'form-control', 'required': 'required', 'autocomplete': 'off'}),
             'duration': forms.TextInput(attrs={'class': 'form-control', 'required': 'required', 'autocomplete': 'off'}),
 

@@ -35,14 +35,18 @@
     <!-- Main content -->
     <section class="content">
       <div class="container">
-        <form method="post" action='{% url "Home:reselleradd" %}'>
+        <form method="post" action='{% url "Home:MambershipCreate" %}'>
           {% csrf_token %}
           <div class="form-group">
             <label for="exampleInputEmail1">Name</label>
+            {{forms.title}}
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Duration Name</label>
             {{forms.name}}
           </div>
           <div class="form-group">
-            <label for="exampleInputEmail1">Duration</label>
+            <label for="exampleInputEmail1">Duration Number</label>
             {{forms.duration}}
           </div>
 
