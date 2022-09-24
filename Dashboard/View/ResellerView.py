@@ -100,7 +100,7 @@ def resellerStatus(request, id):
         if request.method == "POST":
             status = request.POST['status']
             data = get_object_or_404(User, pk=id)
-            if status is "1":
+            if status == "1":
                 data.is_active = False
                 print("1")
                 data.save()
@@ -113,5 +113,3 @@ def resellerStatus(request, id):
             return redirect('/resellerlist/')
     else:
         return redirect('/login/')
-
-

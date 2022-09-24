@@ -1,0 +1,90 @@
+{% extends "Base.html" %} {% block Base %}
+
+<div class="wrapper">
+  <!-- Top Side Bar Block   -->
+
+  {% include "widget/topnav.html" %}
+
+  <!-- Main Sidebar Container -->
+  {% include "widget/sidebar.html" %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Membership List</h1>
+          </div>
+          <!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item">
+                <a href="/MembershipList/">Membership List</a>
+              </li>
+              <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container">
+        {% if membershipList %}
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Duration</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for membershipitem in membershipList %}
+
+            <tr>
+              <td>{{membershipitem.title}}</td>
+              {% if membershipitem.name == 'Trial' %}
+              <td>{{membershipitem.duration}} {{membershipitem.name}} Days</td>
+              {% else %}
+              <td>{{membershipitem.duration}} {{membershipitem.name}}</td>
+              {% endif %}
+
+              <td>
+                <div class="row">
+                  <div class="col">
+                    <a
+                      href="{% url 'Home:membershipEdit' id=membershipitem.id %}"
+                      class="btn btn btn-primary"
+                      >Edit</a
+                    >
+                  </div>
+                  <div class="col">
+                    <a
+                      href="{% url 'Home:membershipdelete' id=membershipitem.id %}"
+                      class="btn btn btn-danger"
+                      >Delete</a
+                    >
+                  </div>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% endif %}
+      </div>
+    </section>
+    <!-- /.content -->
+  </div>
+  {% include "widget/footer.html" %}
+</div>
+
+{% endblock Base %}

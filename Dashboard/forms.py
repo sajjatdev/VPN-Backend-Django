@@ -1,9 +1,9 @@
-from dataclasses import field
+from dataclasses import field, fields
 from pyexpat import model
 from tkinter.tix import Form
 from django.contrib.auth.forms import PasswordChangeForm
 from django import forms
-from .models import update, Membership
+from .models import update, Membership, Customer
 from Loginapp.models import User
 
 
@@ -41,10 +41,23 @@ class MembershipForm(forms.ModelForm):
 
     class Meta:
         model = Membership
-        fields = ['title', 'duration', 'name']
+        fields = ['id', 'title', 'duration', 'name']
         widgets = {
+
             'title': forms.TextInput(attrs={'class': 'form-control', 'required': 'required', 'autocomplete': 'off'}),
             'name': forms.Select(attrs={'class': 'form-control', 'required': 'required', 'autocomplete': 'off'}),
             'duration': forms.TextInput(attrs={'class': 'form-control', 'required': 'required', 'autocomplete': 'off'}),
 
+        }
+
+
+class CustomerForm(forms.ModelForm):
+    class Meta:
+        model = Customer
+        fields = ["name", "username", 'password', 'membership']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'required': 'required', 'autocomplete': 'off'}),
+            'username': forms.TextInput(attrs={'class': 'form-control', 'required': 'required', 'autocomplete': 'off'}),
+            'password': forms.PasswordInput(attrs={'class': 'form-control', 'required': 'required', 'autocomplete': 'new-password'}),
+            'membership': forms.Select(attrs={'class': 'form-control', 'required': 'required', 'autocomplete': 'off'}),
         }

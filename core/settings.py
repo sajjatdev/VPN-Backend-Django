@@ -28,8 +28,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_crontab',
     'crispy_forms',
     'rest_framework',
+
     'Loginapp',
     "Dashboard",
 ]
@@ -122,3 +124,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 AUTH_USER_MODEL = 'Loginapp.User'
+
+
+CRONJOBS = [
+    ('*/1 * * * *', 'Dashboard.cron.Customer')
+]

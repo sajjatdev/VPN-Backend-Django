@@ -1,4 +1,5 @@
 from django.urls import path
+from .View.CustomerView import CustomerList, CustomerCreate
 from .View.MembershipView import MambershipCreate, MembershipList, MembershipEdit, MembershipDelete
 from .View.UpdateView import update_add, updateList, updateEdit, updateDelete
 from .View.ResellerView import ResellerAdd, ResellerList, ResellerEdit, ResellerDelete, resellerStatus
@@ -22,4 +23,9 @@ urlpatterns = [
     path('MembershipList/', MembershipList, name='MembershipList'),
     path('membershipEdit/<int:id>/', MembershipEdit, name="membershipEdit"),
     path('membershipdelete/<int:id>/', MembershipDelete, name="membershipdelete"),
+    # Customer URL Start
+    path('customercreate/', CustomerCreate, name="customercreate"),
+    path('customerlist/', CustomerList, name='customerlist'),
+    path('customerEdit/<int:id>/', MembershipEdit, name="customerEdit"),
+    path('customerdelete/<int:id>/', MembershipDelete, name="customerdelete"),
 ]
