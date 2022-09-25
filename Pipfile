@@ -9,7 +9,7 @@ djangorestframework = "*"
 pymysql = "*"
 django-jazzmin = "*"
 django-crispy-forms = "*"
-django-crontab = "*"
+django-cron = "*"
 
 [dev-packages]
 autopep8 = "*"

@@ -21,6 +21,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+
     'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -28,7 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_crontab',
+    'django_cron',
     'crispy_forms',
     'rest_framework',
 
@@ -105,11 +106,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Dhaka'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 STATIC_URL = '/static/'
@@ -126,6 +127,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'Loginapp.User'
 
 
-CRONJOBS = [
-    ('*/1 * * * *', 'Dashboard.cron.Customer')
+CRON_CLASSES = [
+    'Dashboard.cron.MyCronJob'
 ]

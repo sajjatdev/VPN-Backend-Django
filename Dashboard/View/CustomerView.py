@@ -1,3 +1,5 @@
+from random import choice
+from string import digits, ascii_letters
 from datetime import date, datetime, timedelta
 from django.shortcuts import render, redirect, get_object_or_404
 from Loginapp.models import User
@@ -63,5 +65,68 @@ def CustomerCreate(request):
     else:
         return redirect('/login/')
 
- #      duration_count = str(
-        #          form.cleaned_data['membership']).split(' ')
+
+def customerStatus(request, id):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            status = request.POST['status']
+            now = datetime.now()
+            data = get_object_or_404(Customer, pk=id)
+            if status == "1":
+                data.is_active = False
+                data.save()
+
+            else:
+
+                # Expire Date add
+                duration_count = Membership.objects.get(pk=data.membership.id)
+                print(duration_count.name)
+                if duration_count.name == "Month":
+                    data.is_active = True
+                    data.join_date = now
+                    data.expire_date = (now+timedelta(days=30 * int(
+                        duration_count.duration), hours=now.hour, minutes=now.minute, seconds=now.second)).isoformat()
+                    data.save()
+                    print("success")
+                    return redirect('/customerlist/')
+                elif duration_count.name == "Years":
+                    user_model = Customer.objects.update(
+                        is_active=True, join_date=datetime.now(), )
+                    user_model.save()
+                    return redirect('/customerlist/')
+                elif duration_count.name == "Day":
+                    user_model = Customer.objects.update(is_active=True, join_date=datetime.now(), expire_date=(
+                        now+timedelta(days=int(duration_count.duration), hours=now.hour, minutes=now.minute, seconds=now.second)).isoformat())
+                    user_model.save()
+                    return redirect('/customerlist/')
+            return redirect('/customerlist/')
+    else:
+        return redirect('/login/')
+
+
+def customerDelete(request, id):
+    if request.user.is_authenticated:
+        data = get_object_or_404(Customer, pk=id)
+        data.delete()
+        return redirect('/customerlist/')
+    else:
+        return redirect('/login/')
+
+
+def customerEdit(request, id):
+    if request.user.is_authenticated:
+        instance = get_object_or_404(Customer, pk=id)
+        instance.password = _pw()
+        instance.save()
+
+        return redirect('/customerlist/')
+
+    else:
+        return redirect('/login/')
+
+
+def _pw(length=6):
+    s = ''
+    for i in range(length):
+        s += choice(digits + ascii_letters)
+    return s

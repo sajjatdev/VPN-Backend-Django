@@ -15,13 +15,13 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Membership List</h1>
+            <h1 class="m-0 text-dark">Customer List</h1>
           </div>
           <!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item">
-                <a href="/MembershipList/">Membership List</a>
+                <a href="/customerlist/">Customer List</a>
               </li>
               <li class="breadcrumb-item active">Dashboard</li>
             </ol>
@@ -37,39 +37,67 @@
     <!-- Main content -->
     <section class="content">
       <div class="container">
-        {% if membershipList %}
+        {% if CustomerList %}
         <table class="table table-striped">
           <thead>
             <tr>
               <th scope="col">Name</th>
-              <th scope="col">Duration</th>
+              <th scope="col">Username</th>
+              <th scope="col">Password</th>
+              <th scope="col">Join Date</th>
+              <th scope="col">status</th>
               <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
-            {% for membershipitem in membershipList %}
+            {% for customeritem in CustomerList %}
 
             <tr>
-              <td>{{membershipitem.title}}</td>
-              {% if membershipitem.name == 'Trial' %}
-              <td>{{membershipitem.duration}} {{membershipitem.name}} Days</td>
-              {% else %}
-              <td>{{membershipitem.duration}} {{membershipitem.name}}</td>
-              {% endif %}
+              <td>{{customeritem.name}}</td>
+              <td>{{customeritem.username}}</td>
+              <td>{{customeritem.password}}</td>
+              <td>{{customeritem.join_date}}</td>
+              <td>
+                <form
+                  action="{% url 'Home:customerStatus' id=customeritem.id %}"
+                  method="post"
+                >
+                  {% csrf_token %} {% if customeritem.is_active %}
+                  <button
+                    type="submit"
+                    name="status"
+                    value="1"
+                    class="btn btn-success btn-sm"
+                  >
+                    Active
+                  </button>
+                  {% else %}
+                  <button
+                    type="submit"
+                    name="status"
+                    value="0"
+                    class="btn btn-secondary btn-sm"
+                  >
+                    Renew
+                  </button>
+                  {% endif %}
+                </form>
+              </td>
 
               <td>
                 <div class="row">
-                  <div class="col">
+                  <div class="col-8">
                     <a
-                      href="{% url 'Home:membershipEdit' id=membershipitem.id %}"
-                      class="btn btn btn-primary"
-                      >Edit</a
+                      class="btn btn-primary btn-sm"
+                      href='{% url "Home:customerEdit" id=customeritem.id %}'
+                      ><span><i class="fas fa-retweet"></i> </span>Password</a
                     >
                   </div>
+
                   <div class="col">
                     <a
-                      href="{% url 'Home:membershipdelete' id=membershipitem.id %}"
-                      class="btn btn btn-danger"
+                      href="{% url 'Home:customerdelete' id=customeritem.id %}"
+                      class="btn btn btn-danger btn-sm"
                       >Delete</a
                     >
                   </div>
