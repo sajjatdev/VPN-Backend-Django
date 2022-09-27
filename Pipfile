@@ -10,6 +10,11 @@ pymysql = "*"
 django-jazzmin = "*"
 django-crispy-forms = "*"
 django-cron = "*"
+install = "*"
+mysql-connector-python = "*"
+redis = "*"
+celery = "*"
+django-filter = "*"
 
 [dev-packages]
 autopep8 = "*"

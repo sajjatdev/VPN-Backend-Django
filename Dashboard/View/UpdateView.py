@@ -4,10 +4,12 @@ from Loginapp.models import User
 from ..models import update
 from ..forms import UpdateForm
 
+
 def update_add(request):
     if request.user.is_authenticated:
         current_user = request.user
-        userdata = get_object_or_404(User, pk=current_user.id)
+        userdata = get_object_or_404(
+            User, pk=current_user.id)
         if request.method == 'POST':
             name = request.POST['updatename']
             jsondata = request.POST['jsondata']
@@ -25,7 +27,8 @@ def update_add(request):
 def updateList(request):
     if request.user.is_authenticated:
         current_user = request.user
-        userdata = get_object_or_404(User, pk=current_user.id)
+        userdata = get_object_or_404(
+            User, pk=current_user.id)
         query_set = update.objects.all()
         return render(request, 'update/updatelist.html', context={'User_data': userdata, 'update_data': list(query_set)})
     else:
@@ -36,7 +39,8 @@ def updateEdit(request, id):
     if request.user.is_authenticated:
         instance = get_object_or_404(update, pk=id)
         current_user = request.user
-        userdata = get_object_or_404(User, pk=current_user.id)
+        userdata = get_object_or_404(
+            User, pk=current_user.id)
         form = UpdateForm(request.POST or None, instance=instance)
         if form.is_valid():
             form.save()

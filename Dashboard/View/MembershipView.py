@@ -8,7 +8,8 @@ from ..forms import MembershipForm
 def MambershipCreate(request):
     if request.user.is_authenticated:
         current_user = request.user
-        userdata = get_object_or_404(User, pk=current_user.id)
+        userdata = get_object_or_404(
+            User, pk=current_user.id)
         if request.method == "POST":
             form = MembershipForm(request.POST)
             if form.is_valid():
@@ -27,7 +28,8 @@ def MembershipList(request):
     if request.user.is_authenticated:
         query_set = Membership.objects.all()
         current_user = request.user
-        userdata = get_object_or_404(User, pk=current_user.id)
+        userdata = get_object_or_404(
+            User, pk=current_user.id)
         return render(request, 'Membership/MembershipList.html', context={'User_data': userdata, 'membershipList': list(query_set)})
     else:
         return redirect('/login/')
@@ -37,7 +39,8 @@ def MembershipEdit(request, id):
     if request.user.is_authenticated:
         instance = get_object_or_404(Membership, pk=id)
         current_user = request.user
-        userdata = get_object_or_404(User, pk=current_user.id)
+        userdata = get_object_or_404(
+            User, pk=current_user.id)
         form = MembershipForm(request.POST or None, instance=instance)
         if form.is_valid():
             form.save()

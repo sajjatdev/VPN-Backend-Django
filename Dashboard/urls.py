@@ -1,5 +1,6 @@
 from django.urls import path
-from .View.CustomerView import CustomerList, CustomerCreate, customerEdit,customerStatus,customerDelete
+from .View.transaction import transaction_add, transaction_list
+from .View.CustomerView import CustomerList, CustomerCreate, customerEdit, customerStatus, customerDelete
 from .View.MembershipView import MambershipCreate, MembershipList, MembershipEdit, MembershipDelete
 from .View.UpdateView import update_add, updateList, updateEdit, updateDelete
 from .View.ResellerView import ResellerAdd, ResellerList, ResellerEdit, ResellerDelete, resellerStatus
@@ -29,4 +30,9 @@ urlpatterns = [
     path('customerEdit/<int:id>/', customerEdit, name="customerEdit"),
     path('customerdelete/<int:id>/', customerDelete, name="customerdelete"),
     path('customerStatus/<int:id>/', customerStatus, name="customerStatus"),
+    # Customer URL Start
+    path('transactionadd/', transaction_add, name="transactionadd"),
+    path('transactionlist/', transaction_list, name='transactionlist'),
+
+
 ]

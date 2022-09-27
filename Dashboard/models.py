@@ -1,7 +1,9 @@
 from uuid import uuid1
+from venv import create
 from django.db import models
 from datetime import datetime
 from django.conf import settings
+
 # Create your models here.
 
 
@@ -25,12 +27,12 @@ class update(models.Model):
 
 
 class Membership(models.Model):
-    name = [("Trial", "Trial"), ("Day", "Day"),
+    name = [("Day", "Day"),
             ("Month", "Month"), ("Years", "Years")]
     title = models.CharField(max_length=255)
     duration = models.PositiveIntegerField()
     name = models.CharField(
-        choices=name, default="Trial", max_length=255)
+        choices=name, default="Day", max_length=255)
 
     def __str__(self):
         return str(self.duration) + " " + self.name
@@ -58,3 +60,18 @@ class Customer(models.Model):
         managed = True
         verbose_name = 'Customer'
         verbose_name_plural = 'Customers'
+
+
+class Transaction(models.Model):
+    users = models.ForeignKey(settings.AUTH_USER_MODEL,
+                              on_delete=models.CASCADE, related_name='users')
+    create_at = models.DateTimeField(auto_now_add=True)
+    authors = models.ForeignKey(settings.AUTH_USER_MODEL,
+                                on_delete=models.CASCADE, related_name='authors')
+    balance = models.PositiveIntegerField()
+
+    class Meta:
+        db_table = 'Transaction'
+        managed = True
+        verbose_name = 'Transaction'
+        verbose_name_plural = 'Transaction'

@@ -2,12 +2,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from Loginapp.models import User
 from ..forms import ReSellerForm
+from ..models import Customer
 
 
 def ResellerAdd(request):
     if request.user.is_authenticated:
         current_user = request.user
-        userdata = get_object_or_404(User, pk=current_user.id)
+        userdata = get_object_or_404(
+            User, pk=current_user.id)
         if request.method == "POST":
 
             username = request.POST['username']
@@ -58,12 +60,14 @@ def ResellerAdd(request):
 def ResellerList(request):
     if request.user.is_authenticated:
         current_user = request.user
-        userdata = get_object_or_404(User, pk=current_user.id)
+        userdata = get_object_or_404(
+            User, pk=current_user.id)
         if current_user.is_admin == True:
             resellerList = User.objects.all()
             return render(request, 'reseller/resellerList.html', context={'User_data': userdata, 'resellerList': resellerList})
         else:
-            resellerList = User.objects.filter(createby=current_user.id).all()
+            resellerList = User.objects.filter(
+                createby=current_user.id).all()
             return render(request, 'reseller/resellerList.html', context={'User_data': userdata, 'resellerList': resellerList})
 
     else:
@@ -102,14 +106,29 @@ def resellerStatus(request, id):
             data = get_object_or_404(User, pk=id)
             if status == "1":
                 data.is_active = False
-                print("1")
+
                 data.save()
-                # Status Change Customer
+                try:
+                    customer_data = Customer.objects.filter(reseller=id).all()
+                    if not customer_data is None:
+                        for cu_item in customer_data:
+                            cu_item.is_active = False
+                            cu_item.save()
+                except Exception as e:
+                    print(e)
+
             else:
                 data.is_active = True
                 print("2")
                 data.save()
-                # Status Change Customer
+                try:
+                    customer_data = Customer.objects.filter(reseller=id).all()
+                    if not customer_data is None:
+                        for cu_item in customer_data:
+                            cu_item.is_active = True
+                            cu_item.save()
+                except Exception as e:
+                    print(e)
             return redirect('/resellerlist/')
     else:
         return redirect('/login/')

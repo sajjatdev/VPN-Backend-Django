@@ -1,9 +1,7 @@
-from dataclasses import field, fields
-from pyexpat import model
-from tkinter.tix import Form
+
 from django.contrib.auth.forms import PasswordChangeForm
 from django import forms
-from .models import update, Membership, Customer
+from .models import update, Membership, Customer, Transaction
 from Loginapp.models import User
 
 
@@ -46,7 +44,7 @@ class MembershipForm(forms.ModelForm):
 
             'title': forms.TextInput(attrs={'class': 'form-control', 'required': 'required', 'autocomplete': 'off'}),
             'name': forms.Select(attrs={'class': 'form-control', 'required': 'required', 'autocomplete': 'off'}),
-            'duration': forms.TextInput(attrs={'class': 'form-control', 'required': 'required', 'autocomplete': 'off'}),
+            'duration': forms.NumberInput(attrs={'class': 'form-control', 'required': 'required', 'autocomplete': 'off'}),
 
         }
 

@@ -32,7 +32,8 @@ INSTALLED_APPS = [
     'django_cron',
     'crispy_forms',
     'rest_framework',
-
+    'rest_framework.authtoken',
+    'django_filters',
     'Loginapp',
     "Dashboard",
 ]
@@ -74,10 +75,10 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'vpn_admin_db',
+        'NAME': 'admin',
         'USER': 'root',
         'PASSWORD': '',
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'HOST': 'localhost',
         'PORT': '3306',
     }
 }
@@ -130,3 +131,10 @@ AUTH_USER_MODEL = 'Loginapp.User'
 CRON_CLASSES = [
     'Dashboard.cron.MyCronJob'
 ]
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',  # <-- And here
+    ],
+}

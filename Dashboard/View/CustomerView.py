@@ -10,12 +10,14 @@ from ..forms import CustomerForm
 def CustomerList(request):
     if request.user.is_authenticated:
         current_user = request.user
-        userdata = get_object_or_404(User, pk=current_user.id)
+        userdata = get_object_or_404(
+            User, pk=current_user.id)
         if current_user.is_admin == True:
             customerList = Customer.objects.all()
             return render(request, 'customer/CustomerList.html', context={'User_data': userdata, 'CustomerList': customerList})
         else:
-            customerList = User.objects.filter(createby=current_user.id).all()
+            customerList = Customer.objects.filter(
+                reseller=current_user.id).all()
             return render(request, 'customer/CustomerList.html', context={'User_data': userdata, 'CustomerList': customerList})
 
     else:
@@ -25,7 +27,8 @@ def CustomerList(request):
 def CustomerCreate(request):
     if request.user.is_authenticated:
         current_user = request.user
-        userdata = get_object_or_404(User, pk=current_user.id)
+        userdata = get_object_or_404(
+            User, pk=current_user.id)
         m_querySet = Membership.objects.all()
         now = datetime.now()
         if request.method == "POST":
@@ -33,7 +36,7 @@ def CustomerCreate(request):
             username = request.POST['username']
             password = request.POST['password']
             membership = request.POST['membership']
-            print(membership)
+            print(username)
             duration_count = Membership.objects.get(pk=membership)
             if not Customer.objects.filter(username=username).exists():
                 if duration_count.name == "Month":
@@ -90,14 +93,20 @@ def customerStatus(request, id):
                     print("success")
                     return redirect('/customerlist/')
                 elif duration_count.name == "Years":
-                    user_model = Customer.objects.update(
-                        is_active=True, join_date=datetime.now(), )
-                    user_model.save()
+                    data.is_active = True
+                    data.join_date = now
+                    data.expire_date = (now+timedelta(days=365 * int(
+                        duration_count.duration), hours=now.hour, minutes=now.minute, seconds=now.second)).isoformat()
+                    data.save()
+                    print("success")
                     return redirect('/customerlist/')
                 elif duration_count.name == "Day":
-                    user_model = Customer.objects.update(is_active=True, join_date=datetime.now(), expire_date=(
-                        now+timedelta(days=int(duration_count.duration), hours=now.hour, minutes=now.minute, seconds=now.second)).isoformat())
-                    user_model.save()
+                    data.join_date = now
+                    data.is_active = True
+                    data.expire_date = (now+timedelta(days=int(
+                        duration_count.duration), hours=now.hour, minutes=now.minute, seconds=now.second)).isoformat()
+                    data.save()
+                    print("success")
                     return redirect('/customerlist/')
             return redirect('/customerlist/')
     else:
