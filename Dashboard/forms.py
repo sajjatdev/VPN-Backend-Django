@@ -1,7 +1,7 @@
 
 from django.contrib.auth.forms import PasswordChangeForm
 from django import forms
-from .models import update, Membership, Customer, Transaction
+from .models import ServerJson, Membership, Customer, Transaction, Server, Payload
 from Loginapp.models import User
 
 
@@ -10,14 +10,47 @@ class UserPasswordChaneg(PasswordChangeForm):
         super(UserPasswordChaneg, self).__init__(*args, **kwargs)
 
 
-class UpdateForm(forms.ModelForm):
+class ServerForm(forms.ModelForm):
     class Meta:
-        model = update
-        fields = ['name', 'jsondata', 'status']
+        model = Server
+        fields = ['name',  'Server_Host', 'Server_Port',
+                  'SSL_Port', 'UDP_port',  'Flag']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', }),
-            'jsondata': forms.Textarea(attrs={'class': 'form-control', }),
+            'Server_Host': forms.TextInput(attrs={'class': 'form-control', }),
+            'Server_Port': forms.TextInput(attrs={'class': 'form-control', }),
+            'SSL_Port': forms.TextInput(attrs={'class': 'form-control', }),
+            'UDP_port': forms.TextInput(attrs={'class': 'form-control', }),
+        }
 
+
+class PayloadForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(PayloadForm, self).__init__(*args, **kwargs)
+        self.fields['SSL'].initial = "None"
+        self.fields['SSL'].help_text = ' If you want to SSL please add value otherwise this field None'
+
+    class Meta:
+        model = Payload
+        fields = ['name', 'payload', 'SSL',
+                  'proxyIP', 'proxyport']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', }),
+            'payload': forms.Textarea(attrs={'class': 'form-control', }),
+            'SSL': forms.TextInput(attrs={'class': 'form-control', }),
+            'proxyIP': forms.TextInput(attrs={'class': 'form-control', }),
+            'proxyport': forms.TextInput(attrs={'class': 'form-control', }),
+        }
+
+
+class ServerJsonForm(forms.ModelForm):
+    class Meta:
+        model = ServerJson
+        fields = ['name', 'server', 'payload', 'status']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', }),
+            'server': forms.SelectMultiple(attrs={'class': 'form-control', }),
+            'payload': forms.SelectMultiple(attrs={'class': 'form-control', }),
         }
 
 

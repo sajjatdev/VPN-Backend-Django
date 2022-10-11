@@ -1,15 +1,15 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
-from .models import update, Customer
-from .API import UpdateSerializer, CustomerSerializer
+from .models import ServerJson, Customer
+from .API import ServerJsonSerializer, CustomerSerializer
 from .filters import CustomerFilter
 
 
 class UpdateViewSet(ModelViewSet):
     permission_classes = (IsAuthenticated,)
-    queryset = update.objects.all()
-    serializer_class = UpdateSerializer
+    queryset = ServerJson.objects.all()
+    serializer_class = ServerJsonSerializer
 
 
 class CustomerViewSet(ModelViewSet):

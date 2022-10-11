@@ -15,12 +15,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Update Add</h1>
+            <h1 class="m-0 text-dark">Server Json Add</h1>
           </div>
           <!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Update</a></li>
+              <li class="breadcrumb-item"><a href="#">Server Json</a></li>
               <li class="breadcrumb-item active">Dashboard</li>
             </ol>
           </div>
@@ -38,26 +38,21 @@
         <form method="post" action='{% url "Home:update_add" %}'>
           {% csrf_token %}
           <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label"
-              >Update Name</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
-              name="updatename"
-              required
-            />
+            <label for="exampleInputEmail1" class="form-label">Json Name</label>
+            {{form.name}}
           </div>
           <div class="mb-3">
-            <textarea
-              class="form-control"
-              name="jsondata"
-              cols="100"
-              rows="20"
-              required
-            ></textarea>
+            <label for="exampleInputEmail1" class="form-label">Server</label>
+            {{form.server}}
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Payload</label>
+            {{form.payload}}
+          </div>
+
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Payload</label>
+            {{form.status}}
           </div>
 
           <div class="pb-5">

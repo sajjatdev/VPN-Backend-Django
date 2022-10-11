@@ -49,23 +49,75 @@
         {% if User_data.is_admin %}
         <li class="nav-item has-treeview">
           <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-copy"></i>
+            <i class="fa-solid fa-lock"></i>
             <p>
-              Update View
+              vpn Json
               <i class="fas fa-angle-left right"></i>
             </p>
           </a>
+
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <a href="{% url 'Home:update_add' %}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Update add</p>
+                <i class="fa-solid fa-plus"></i>
+                <p>Json Add</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="{% url 'Home:updatelist' %}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Update List</p>
+                <i class="fa-solid fa-list"></i>
+                <p>Json List</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- Server Add -->
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="fa-solid fa-server"></i>
+            <p>
+              Servers
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{% url 'Home:serveradd' %}" class="nav-link">
+                <i class="fa-solid fa-plus"></i>
+                <p>Server Add</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'Home:serverlist' %}" class="nav-link">
+                <i class="fa-solid fa-list"></i>
+                <p>Server List</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <!-- Payload Add -->
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="fa-solid fa-code"></i>
+            <p>
+              Payloads
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{% url 'Home:payloadadd' %}" class="nav-link">
+                <i class="fa-solid fa-plus"></i>
+                <p>Payload Add</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'Home:payloadlist' %}" class="nav-link">
+                <i class="fa-solid fa-list"></i>
+                <p>Payload List</p>
               </a>
             </li>
           </ul>

@@ -67,7 +67,7 @@
                     type="submit"
                     name="status"
                     value="1"
-                    class="btn btn-success btn-sm"
+                    class="btn btn-success"
                   >
                     Active
                   </button>
@@ -76,7 +76,7 @@
                     type="submit"
                     name="status"
                     value="0"
-                    class="btn btn-secondary btn-sm"
+                    class="btn btn-secondary"
                   >
                     Renew
                   </button>
@@ -88,18 +88,18 @@
                 <div class="row">
                   <div class="col-8">
                     <a
-                      class="btn btn-primary btn-sm"
+                      class="btn btn-primary"
                       href='{% url "Home:customerEdit" id=customeritem.id %}'
-                      ><span><i class="fas fa-retweet"></i> </span>Password</a
-                    >
+                      ><i class="fas fa-retweet"></i>
+                    </a>
                   </div>
 
                   <div class="col">
                     <a
                       href="{% url 'Home:customerdelete' id=customeritem.id %}"
-                      class="btn btn btn-danger btn-sm"
-                      >Delete</a
-                    >
+                      class="btn btn btn-danger"
+                      ><i class="fa-solid fa-trash"></i
+                    ></a>
                   </div>
                 </div>
               </td>

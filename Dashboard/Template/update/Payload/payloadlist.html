@@ -1,0 +1,90 @@
+{% extends "Base.html" %} {% block Base %}
+
+<div class="wrapper">
+  <!-- Top Side Bar Block   -->
+
+  {% include "widget/topnav.html" %}
+
+  <!-- Main Sidebar Container -->
+  {% include "widget/sidebar.html" %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Payload List</h1>
+          </div>
+          <!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Payloads</a></li>
+              <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container">
+        {% if payload_data %}
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">NAME</th>
+              <th scope="col">SSL or HTTP</th>
+              <th scope="col">PROXY IP</th>
+              <th scope="col">ACTION</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in payload_data %}
+            <tr>
+              <th scope="row">{{item.id}}</th>
+              <td>{{item.name}}</td>
+              {% if item.SSL == "None" %}
+              <td>HTTP Payload</td>
+              {% else %}
+              <td>{{item.SSL}}</td>
+              {% endif %}
+
+              <td>{{item.proxyIP}}</td>
+
+              <td class="row">
+                <div class="col">
+                  <a
+                    class="btn btn-success"
+                    href="{% url 'Home:payloadupdate' id=item.id %}"
+                    ><i class="fa-solid fa-pen-to-square"></i
+                  ></a>
+                </div>
+                <div class="col">
+                  <a
+                    class="btn btn-danger"
+                    href="{% url 'Home:payloaddelete' id=item.id %}"
+                    ><i class="fa-solid fa-trash"></i
+                  ></a>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% endif %}
+      </div>
+    </section>
+    <!-- /.content -->
+  </div>
+  {% include "widget/footer.html" %}
+</div>
+
+{% endblock Base %}

@@ -2,7 +2,7 @@ from django.urls import path
 from .View.transaction import transaction_add, transaction_list
 from .View.CustomerView import CustomerList, CustomerCreate, customerEdit, customerStatus, customerDelete
 from .View.MembershipView import MambershipCreate, MembershipList, MembershipEdit, MembershipDelete
-from .View.UpdateView import update_add, updateList, updateEdit, updateDelete
+from .View.UpdateView import update_add, updateList, updateEdit, PayloadDelete, PayloadList, ServerDelete, ServerUpdate, updateDelete, ServerList, PayloadAdd, PayloadUpdate, ServerAdd
 from .View.ResellerView import ResellerAdd, ResellerList, ResellerEdit, ResellerDelete, resellerStatus
 from .View.views import index
 app_name = "Home"
@@ -33,6 +33,15 @@ urlpatterns = [
     # Customer URL Start
     path('transactionadd/', transaction_add, name="transactionadd"),
     path('transactionlist/', transaction_list, name='transactionlist'),
-
+    # Server URL Start
+    path('serveradd/', ServerAdd, name='serveradd'),
+    path('serverlist/', ServerList, name="serverlist"),
+    path('serverupdate/<int:id>/', ServerUpdate, name='serverupdate'),
+    path('serverdelete/<int:id>/', ServerDelete, name='serverdelete'),
+    # Payload URl Start
+    path('payloadadd/', PayloadAdd, name='payloadadd'),
+    path('payloadlist/', PayloadList, name="payloadlist"),
+    path('payloadupdate/<int:id>/', PayloadUpdate, name='payloadupdate'),
+    path('payloaddelete/<int:id>/', PayloadDelete, name='payloaddelete'),
 
 ]

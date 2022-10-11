@@ -1,18 +1,50 @@
 from uuid import uuid1
-from venv import create
 from django.db import models
 from datetime import datetime
 from django.conf import settings
 
-# Create your models here.
+
+class Payload(models.Model):
+    name = models.CharField(max_length=255)
+    payload = models.TextField(max_length=500)
+    SSL = models.CharField(max_length=255, default="none")
+    proxyIP = models.CharField(max_length=255)
+    proxyport = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = 'Payload'
+        managed = True
+        verbose_name = 'Payload'
+        verbose_name_plural = 'Payload'
 
 
-class update(models.Model):
+class Server(models.Model):
+    name = models.CharField(max_length=255)
+    Flag = models.ImageField(upload_to='flag/')
+    Server_Host = models.CharField(max_length=255)
+    Server_Port = models.CharField(max_length=255)
+    SSL_Port = models.CharField(max_length=255)
+    UDP_port = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = 'Server'
+        managed = True
+        verbose_name = 'Server'
+        verbose_name_plural = 'Servers'
+
+
+class ServerJson(models.Model):
     id = models.UUIDField(unique=True, primary_key=True,
                           default=uuid1, editable=False, max_length=20)
     name = models.CharField(max_length=255)
-    jsondata = models.TextField()
-
+    server = models.ManyToManyField(Server)
+    payload = models.ManyToManyField(Payload)
     status = models.BooleanField(default=True)
     create_at = models.DateTimeField(auto_now_add=True)
 
@@ -20,10 +52,10 @@ class update(models.Model):
         return self.name
 
     class Meta:
-        db_table = 'update'
+        db_table = 'ServerJson'
         managed = True
-        verbose_name = 'update'
-        verbose_name_plural = 'updates'
+        verbose_name = 'ServerJson'
+        verbose_name_plural = 'ServerJsons'
 
 
 class Membership(models.Model):

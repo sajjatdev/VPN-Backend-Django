@@ -1,0 +1,94 @@
+{% extends "Base.html" %} {% block Base %}
+
+<div class="wrapper">
+  <!-- Top Side Bar Block   -->
+
+  {% include "widget/topnav.html" %}
+
+  <!-- Main Sidebar Container -->
+  {% include "widget/sidebar.html" %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Server List</h1>
+          </div>
+          <!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Server List</a></li>
+              <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container">
+        {% if server_data %}
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">FLAG</th>
+              <th scope="col">NAME</th>
+              <th scope="col">SERVER HOST</th>
+              <th scope="col">SERVER PORT</th>
+              <th scope="col">SSL PORT</th>
+              <th scope="col">UDP PORT</th>
+              <th scope="col">ACTION</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in server_data %}
+            <tr>
+              <th scope="row">
+                <img
+                  width="30px"
+                  src="/media/{{item.Flag}}"
+                  alt="/media/{{item.Flag}}"
+                />
+              </th>
+              <td>{{item.name}}</td>
+              <td>{{item.Server_Host}}</td>
+              <td>{{item.Server_Port}}</td>
+              <td>{{item.SSL_Port}}</td>
+              <td>{{item.UDP_port}}</td>
+              <td class="row">
+                <div class="col">
+                  <a
+                    class="btn btn-success"
+                    href="{% url 'Home:serverupdate' id=item.id %}"
+                    ><i class="fa-solid fa-pen-to-square"></i
+                  ></a>
+                </div>
+                <div class="col">
+                  <a
+                    class="btn btn-danger"
+                    href="{% url 'Home:serverdelete' id=item.id %}"
+                    ><i class="fa-solid fa-trash"></i
+                  ></a>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% endif %}
+      </div>
+    </section>
+    <!-- /.content -->
+  </div>
+  {% include "widget/footer.html" %}
+</div>
+
+{% endblock Base %}

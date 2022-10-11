@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from Loginapp.models import User
-from ..models import Transaction
+from ..models import Transaction, Customer
 
 
 def transaction_add(request):
