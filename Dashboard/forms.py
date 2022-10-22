@@ -1,8 +1,11 @@
 
-from django.contrib.auth.forms import PasswordChangeForm
 from django import forms
-from .models import ServerJson, Membership, Customer, Transaction, Server, Payload
+from django.contrib.auth.forms import PasswordChangeForm
+
 from Loginapp.models import User
+
+from .models import (Customer, Membership, Payload, Server, ServerJson,
+                     Transaction, ServerInstaller)
 
 
 class UserPasswordChaneg(PasswordChangeForm):
@@ -21,6 +24,19 @@ class ServerForm(forms.ModelForm):
             'Server_Port': forms.TextInput(attrs={'class': 'form-control', }),
             'SSL_Port': forms.TextInput(attrs={'class': 'form-control', }),
             'UDP_port': forms.TextInput(attrs={'class': 'form-control', }),
+        }
+
+
+class ServerInstaller(forms.ModelForm):
+    class Meta:
+        model = ServerInstaller
+        fields = ['name',  'server_host', 'username',
+                  'password', ]
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', }),
+            'server_host': forms.TextInput(attrs={'class': 'form-control', }),
+            'username': forms.TextInput(attrs={'class': 'form-control', }),
+            'password': forms.PasswordInput(attrs={'class': 'form-control', }),
         }
 
 

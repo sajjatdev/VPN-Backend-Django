@@ -9,17 +9,13 @@ djangorestframework = "*"
 pymysql = "*"
 django-jazzmin = "*"
 django-crispy-forms = "*"
-django-cron = "*"
-install = "*"
 mysql-connector-python = "*"
-redis = "*"
-celery = "*"
 django-filter = "*"
 pillow = "*"
-django-adminlte3 = "*"
+paramiko = "*"
+django-cron = "*"
 
 [dev-packages]
-autopep8 = "*"
 
 [requires]
 python_version = "3.10"

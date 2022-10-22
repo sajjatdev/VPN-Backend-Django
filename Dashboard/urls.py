@@ -4,6 +4,7 @@ from .View.CustomerView import CustomerList, CustomerCreate, customerEdit, custo
 from .View.MembershipView import MambershipCreate, MembershipList, MembershipEdit, MembershipDelete
 from .View.UpdateView import update_add, updateList, updateEdit, PayloadDelete, PayloadList, ServerDelete, ServerUpdate, updateDelete, ServerList, PayloadAdd, PayloadUpdate, ServerAdd
 from .View.ResellerView import ResellerAdd, ResellerList, ResellerEdit, ResellerDelete, resellerStatus
+from .View.serverinstallerview import ServerInstall,serverReset,serverStop,serverStart
 from .View.views import index
 app_name = "Home"
 urlpatterns = [
@@ -44,4 +45,9 @@ urlpatterns = [
     path('payloadupdate/<int:id>/', PayloadUpdate, name='payloadupdate'),
     path('payloaddelete/<int:id>/', PayloadDelete, name='payloaddelete'),
 
+    # Server Installer
+    path('install/', ServerInstall, name='ovpnInstall'),
+    path('reset/<int:id>/', serverReset, name='ovpnreset'),
+    path('start/<int:id>/', serverStart, name='ovpnstart'),
+    path('reset/<int:id>/', serverStop, name='ovpnstop')
 ]

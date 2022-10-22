@@ -1,6 +1,5 @@
-
 from rest_framework import serializers
-from .models import ServerJson, Customer, Payload, Server
+from .models import Customer, Payload, Server, ServerJson
 
 
 class PayloadSerializer(serializers.ModelSerializer):

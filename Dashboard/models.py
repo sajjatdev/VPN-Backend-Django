@@ -1,7 +1,9 @@
-from uuid import uuid1
-from django.db import models
 from datetime import datetime
+from email.policy import default
+from uuid import uuid1
+
 from django.conf import settings
+from django.db import models
 
 
 class Payload(models.Model):
@@ -107,3 +109,20 @@ class Transaction(models.Model):
         managed = True
         verbose_name = 'Transaction'
         verbose_name_plural = 'Transaction'
+
+
+class ServerInstaller(models.Model):
+    name = models.CharField(max_length=255)
+    server_host = models.CharField(max_length=255)
+    username = models.CharField(max_length=255)
+    password = models.CharField(max_length=255)
+    status=models.BooleanField(default=True)
+    
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = 'ServerInstaller'
+        managed = True
+        verbose_name = 'ServerInstaller'
+        verbose_name_plural = 'ServerInstallers'
